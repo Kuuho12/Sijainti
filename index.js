@@ -40,7 +40,7 @@ function locationSuccess(position) {
         $("#isokarttalinkki").text("Näytä isommalla kartalla");
         $("#isokarttalinkki").attr("href", `https://www.openstreetmap.org/?mlat=${coords.lat}&mlon=${coords.lon}#map=${zoom}/${coords.lat}/${coords.lon}`);
         $("#locationteksti").text(`Leveysaste: ${coords.lat},  pituusaste: ${coords.lon}`);
-        $("#tapateskti").text(`Tarkkuus: ${coords.acc} m, sen perusteella sijainti perustuu ${locationTapa}`);
+        $("#tapateksti").text(`Tarkkuus: ${coords.acc} m, sen perusteella sijainti perustuu ${locationTapa}`);
     }
 }
 function locationError() {

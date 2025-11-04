@@ -8,13 +8,15 @@
   </head>
   <body>
     <div class='container'>
-            <iframe id="kartta" width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=3.4936523437500004%2C59.355596110016315%2C50.73486328125001%2C69.88501003874241&amp;layer=mapnik" style="border: 1px solid black"></iframe>
-            <br/><small><a href="" id="isokarttalinkki"></a></small>
+            <iframe id="kartta" src="https://www.openstreetmap.org/export/embed.html?bbox=3.4936523437500004%2C59.355596110016315%2C50.73486328125001%2C69.88501003874241&amp;layer=mapnik" style="border: 1px solid black"></iframe>
+            <br/><p id="isokarttateksti"><a href="" id="isokarttalinkki"></a></p>
             <p id="locationteksti">Haetaan sijaintia...</p>
             <p id="tapateksti"></p>
+            <noscript>
+              <p>Tämä sivu vaatii javascriptin toimiakseen.</p>
+            </noscript>
         </div>
     <script src="jquery-3.7.1.min.js"></script>
     <script defer src="index.js"></script>
   </body>
 </html>
-!

@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    width: 50%;
+    width: 100%;
     min-width: 500px;
     margin-left: auto;
     margin-right: auto;
@@ -9,4 +9,17 @@
 }
 #locationteksti {
     text-align: center;
+}
+#isokarttateksti {
+    font-size: 18px;
+    margin: 8px 0px;
+}
+#kartta {
+    max-width: 100%;
+    width: 425px;
+    height: 350px;
+}
+p {
+    font-size: 22px;
+    margin: 10px 0px;
 }

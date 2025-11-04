@@ -8,7 +8,6 @@
     align-items: center;
 }
 #locationteksti {
-    text-align: center;
 }
 #isokarttateksti {
     font-size: 18px;
@@ -22,4 +21,8 @@
 p {
     font-size: 22px;
     margin: 10px 0px;
+    text-align: center;
+}
+p, h1 {
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
 }

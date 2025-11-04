@@ -32,8 +32,8 @@ function locationSuccess(position) {
             locationTapa = "WiFi-yhteyksiin"
         } else { 
             locationTapa="IP:seen"
-            zoom = 14 
-            delta = 0.004;
+            zoom = 13 
+            delta = 0.01;
         }
         const lonMin = lon - delta;
         const lonMax = lon + delta;

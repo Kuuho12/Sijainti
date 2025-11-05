@@ -33,13 +33,13 @@ function locationSuccess(position) {
         const accuracy = Math.round(coords.acc)
         let delta = 0.002; // ~200 m, tweak as needed for zoom level
         if (accuracy < 20) {
-            locationTapa = "GPS:ään"
+            locationTapa = "GPS-paikannukseen"
             delta = 0.001;
             zoom = 16
         } else if (accuracy < 500) {
-            locationTapa = "WiFi-yhteyksiin"
+            locationTapa = "käytössä oleviin WiFi-yhteyksiin"
         } else {
-            locationTapa = "IP:seen"
+            locationTapa = "IP-osoitteeseen"
             zoom = 13
             delta = 0.01;
         }
@@ -53,7 +53,7 @@ function locationSuccess(position) {
         $("#kartta").attr("src", src);
         $("#isokarttateksti").css("display", "block")
         $("#isokarttalinkki").attr("href", `https://www.openstreetmap.org/?mlat=${coords.lat}&mlon=${coords.lon}#map=${zoom}/${coords.lat}/${coords.lon}`);
-        $("#locationteksti").text(`Leveysaste: ${coords.lat},  pituusaste: ${coords.lon}`);
+        $("#locationteksti").text(`Leveysaste: ${coords.lat} Pituusaste: ${coords.lon}`);
         $("#tarkkuusteksti").text(`Tarkkuus: ${accuracy} metriä`)
         $("#tapateksti").text(`Tarkkuuden perusteella sijainti perustuu ${locationTapa}`);
     }
@@ -89,7 +89,9 @@ async function getIpLocationFallback(virhe) {
 
     try {
         // 2. Fetch data from an IP Geolocation API
-        const response = await fetch("http://ip-api.com/json/");
+        // const response = await fetch("http://ip-api.com/json/");
+        // käytetään paikallista proxy-palvelinta
+        const response = await fetch("https://www.innowise.fi/sijainti/get-ip-location.php");
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -113,8 +115,8 @@ async function getIpLocationFallback(virhe) {
             $("#kartta").attr("src", src);
             $("#isokarttateksti").css("display", "block")
             $("#isokarttalinkki").attr("href", `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=${zoom}/${lat}/${lon}`);
-            $("#locationteksti").text(`Leveysaste: ${lat},  pituusaste: ${lon}`);
-            $("#tarkkuusteksti").text(`Netin tarjoaja: ${nettitarjoaja}`)
+            $("#locationteksti").text(`Leveysaste: ${lat}. Pituusaste: ${lon}`);
+            $("#tarkkuusteksti").text(`Sijainti perustuu nettiyhteyden IP-osoitteeseen (${nettitarjoaja}).`)
             $("#loader").hide();
             return;
         } else {
@@ -122,7 +124,7 @@ async function getIpLocationFallback(virhe) {
             $("#loader").hide();
         }
     } catch (e) {
-        $("#locationteksti").text("Sijainnin saanti IP-osoitteella epäonnistui");
+        $("#locationteksti").text(`Sijainnin saanti IP-osoitteella epäonnistui: ${e}`);
         $("#loader").hide();
     }
 }

@@ -5,34 +5,35 @@ let zoom = 15;
 let src = ""
 let locationTapa = ""
 function getLocation() {
-if (!navigator.geolocation) {
-    error = "Geolokaatio ei toimi tässä selaimessa"
-    $("#locationteksti").text(error);
-} else {
-    navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
-}
+    $("#locationteksti").text("Haetaan sijaintia...")
+    if (!navigator.geolocation) {
+        error = "Geolokaatio ei toimi tässä selaimessa"
+        $("#locationteksti").text(error);
+    } else {
+        navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
+    }
 }
 function locationSuccess(position) {
     console.log("juu")
-        coords = {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-            acc: position.coords.accuracy
-        }
-    if(coords) {
+    coords = {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+        acc: position.coords.accuracy
+    }
+    if (coords) {
         const lat = coords.lat;
         const lon = coords.lon;
         const accuracy = Math.round(coords.acc)
         let delta = 0.002; // ~200 m, tweak as needed for zoom level
-        if(accuracy < 20) {
+        if (accuracy < 20) {
             locationTapa = "GPS:ään"
             delta = 0.001;
             zoom = 16
         } else if (accuracy < 500) {
             locationTapa = "WiFi-yhteyksiin"
-        } else { 
-            locationTapa="IP:seen"
-            zoom = 13 
+        } else {
+            locationTapa = "IP:seen"
+            zoom = 13
             delta = 0.01;
         }
         const lonMin = lon - delta;
@@ -46,12 +47,26 @@ function locationSuccess(position) {
         $("#isokarttalinkki").text("Näytä isommalla kartalla");
         $("#isokarttalinkki").attr("href", `https://www.openstreetmap.org/?mlat=${coords.lat}&mlon=${coords.lon}#map=${zoom}/${coords.lat}/${coords.lon}`);
         $("#locationteksti").text(`Leveysaste: ${coords.lat},  pituusaste: ${coords.lon}`);
-        $("#tapateksti").text(`Tarkkuus: ${accuracy} metriä, tarkkuuden perusteella sijainti perustuu ${locationTapa}`);
+        $("#tarkkuusteksti").text(`Tarkkuus: ${accuracy} metriä`)
+        $("#tapateksti").text(`Tarkkuuden perusteella sijainti perustuu ${locationTapa}`);
     }
 }
-function locationError() {
-    error = "Sijainti ei ole käytössä";
+function locationError(virhe) {
+    switch (virhe.code) {
+        case virhe.PERMISSION_DENIED:
+            error = "Estit sijainnin käytön"
+            break;
+        case virhe.POSITION_UNAVAILABLE:
+            error = "Sijainti ei ole saatavissa"
+            break;
+        case virhe.TIMEOUT:
+            error = "Sijainti pyyntö vanheni"
+            break;
+        case virhe.UNKNOWN_ERROR:
+            error = "Tuntematon virhe tapahtui"
+            break;
+    }
     $("#locationteksti").text(error);
 }
 
-getLocation();
+//getLocation();

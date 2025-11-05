@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Sijainti</title>
   </head>
   <body>
@@ -11,9 +14,11 @@
       <h1>Testaa sijaintisi verkossa</h1>
       <p>Ohje: Salli sijainnin käyttö, niin näet, miten tarkasti sijaintisi on verkkopalvelujen käytössä.
         <br>Sijainnin käyttöä ei kannata sallia netissä turhaan!</p>
-            <iframe id="kartta" src="https://www.openstreetmap.org/export/embed.html?bbox=3.4936523437500004%2C59.355596110016315%2C50.73486328125001%2C69.88501003874241&amp;layer=mapnik" style="border: 1px solid black"></iframe>
+        <button onclick="getLocation()">Aloita testi</button>
+            <iframe id="kartta" src="https://www.openstreetmap.org/export/embed.html?bbox=1.5161132812500002%2C58.75687579705203%2C48.75732421875001%2C69.48071940669338&amp;layer=mapnik" style="border: 1px solid black"></iframe>
             <br/><p id="isokarttateksti"><a href="" id="isokarttalinkki"></a></p>
-            <p id="locationteksti">Haetaan sijaintia...</p>
+            <p id="locationteksti"></p>
+            <p id="tarkkuusteksti"></p>
             <p id="tapateksti"></p>
             <noscript>
               <p>Tämä sivu vaatii javascriptin toimiakseen.</p>

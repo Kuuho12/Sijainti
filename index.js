@@ -6,14 +6,17 @@ let src = ""
 let locationTapa = ""
 function getLocation() {
     $("#locationteksti").text("Haetaan sijaintia...")
+    $("#loader").show();
     if (!navigator.geolocation) {
         error = "Geolokaatio ei toimi tässä selaimessa"
         $("#locationteksti").text(error);
+        $("#loader").hide();
     } else {
         navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
     }
 }
 function locationSuccess(position) {
+    $("#loader").hide();
     console.log("juu")
     coords = {
         lat: position.coords.latitude,
@@ -44,7 +47,7 @@ function locationSuccess(position) {
         //const circleParams = `&circle=${lat},${lon},${accuracy}`;
         src = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${encodeURIComponent(lat + ',' + lon)}`;
         $("#kartta").attr("src", src);
-        $("#isokarttalinkki").text("Näytä isommalla kartalla");
+        $("#isokarttateksti").css("display", "block")
         $("#isokarttalinkki").attr("href", `https://www.openstreetmap.org/?mlat=${coords.lat}&mlon=${coords.lon}#map=${zoom}/${coords.lat}/${coords.lon}`);
         $("#locationteksti").text(`Leveysaste: ${coords.lat},  pituusaste: ${coords.lon}`);
         $("#tarkkuusteksti").text(`Tarkkuus: ${accuracy} metriä`)
@@ -52,15 +55,22 @@ function locationSuccess(position) {
     }
 }
 function locationError(virhe) {
+    $("#loader").hide();
+    console.log(virhe)
     switch (virhe.code) {
         case virhe.PERMISSION_DENIED:
+        case virhe.POSITION_UNAVAILABLE:
+            error = "Yritetään saada sijainti IP-osoitteella"
+            getIpLocationFallback(virhe)
+            break;
+        /*case virhe.PERMISSION_DENIED:
             error = "Estit sijainnin käytön"
             break;
         case virhe.POSITION_UNAVAILABLE:
             error = "Sijainti ei ole saatavissa"
-            break;
+            break;*/
         case virhe.TIMEOUT:
-            error = "Sijainti pyyntö vanheni"
+            error = "Sijaintipyyntö vanheni"
             break;
         case virhe.UNKNOWN_ERROR:
             error = "Tuntematon virhe tapahtui"
@@ -69,4 +79,46 @@ function locationError(virhe) {
     $("#locationteksti").text(error);
 }
 
-//getLocation();
+async function getIpLocationFallback(virhe) {
+    $("#loader").show();
+    console.log("Attempting IP-based location fallback...");
+
+    try {
+        // 2. Fetch data from an IP Geolocation API
+        const response = await fetch("http://ip-api.com/json/");
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            console.log(data)
+            const lat = data.lat;
+            const lon = data.lon;
+            const nettitarjoaja = data.isp;
+            const delta = 0.01
+            zoom = 13
+            const lonMin = lon - delta;
+            const lonMax = lon + delta;
+            const latMin = lat - delta;
+            const latMax = lat + delta;
+            const bbox = `${lonMin},${latMin},${lonMax},${latMax}`; // Kartan näyttämä neliö
+            src = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${encodeURIComponent(lat + ',' + lon)}`;
+            $("#kartta").attr("src", src);
+            $("#isokarttateksti").css("display", "block")
+            $("#isokarttalinkki").attr("href", `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=${zoom}/${lat}/${lon}`);
+            $("#locationteksti").text(`Leveysaste: ${lat},  pituusaste: ${lon}`);
+            $("#tarkkuusteksti").text(`Netin tarjoaja: ${nettitarjoaja}`)
+            $("#loader").hide();
+            return;
+        } else {
+            $("#locationteksti").text("Sijainnin saanti IP-osoitteella epäonnistui");
+            $("#loader").hide();
+        }
+    } catch (e) {
+        $("#locationteksti").text("Sijainnin saanti IP-osoitteella epäonnistui");
+        $("#loader").hide();
+    }
+}

@@ -5,6 +5,10 @@ let zoom = 15;
 let src = ""
 let locationTapa = ""
 function getLocation() {
+    $("#isokarttateksti").css("display", "none")
+    $("#locationteksti").text("")
+    $("#tarkkuusteksti").text("")
+    $("#tapateksti").text("")
     $("#locationteksti").text("Haetaan sijaintia...")
     $("#loader").show();
     if (!navigator.geolocation) {

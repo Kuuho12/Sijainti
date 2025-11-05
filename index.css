@@ -13,21 +13,32 @@
 }
 button {
     font-size: 17px;
-    margin-bottom: 15px;
     margin-top: 10px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-weight: bold;
 }
 #kartta {
     max-width: 100%;
     width: 425px;
     height: 350px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
 }
 p {
     font-size: 20px;
-    margin: 10px 0px;
-    text-align: center;
+    margin: 8px 0px;
 }
 p, h1 {
     font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+    text-align: center;
+}
+#ohje {
+    margin: 10px 0px;
+}
+#tekstit {
+    margin: 5px 0px;
 }
 .loader {
     border: 4px solid #f3f3f3;

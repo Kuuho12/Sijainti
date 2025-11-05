@@ -12,11 +12,12 @@
   <body>
     <div class='container'>
       <h1>Testaa sijaintisi verkossa</h1>
-      <p>Ohje: Salli sijainnin käyttö, niin näet, miten tarkasti sijaintisi on verkkopalvelujen käytössä.
+      <p id="ohje">Ohje: Salli sijainnin käyttö, niin näet, miten tarkasti sijaintisi on verkkopalvelujen käytössä.
         <br>Sijainnin käyttöä ei kannata sallia netissä turhaan!</p>
         <button onclick="getLocation()">Aloita testi</button>
             <iframe id="kartta" src="https://www.openstreetmap.org/export/embed.html?bbox=1.5161132812500002%2C58.75687579705203%2C48.75732421875001%2C69.48071940669338&amp;layer=mapnik" style="border: 1px solid black"></iframe>
-            <br/><p id="isokarttateksti" style="display: none;"><a href="" id="isokarttalinkki">Näytä isommalla kartalla</a></p>
+            <p id="isokarttateksti" style="display: none;"><a href="" id="isokarttalinkki">Näytä isommalla kartalla</a></p>
+            <div id="tekstit">
             <p id="locationteksti"></p>
             <div id="loader" class="loader"></div>
             <p id="tarkkuusteksti"></p>
@@ -24,6 +25,7 @@
             <noscript>
               <p>Tämä sivu vaatii javascriptin toimiakseen.</p>
             </noscript>
+            </div>
             <p><small>Tämä sivu ei tallenna sinusta mitään tietoja. <br>© <a href="https://www.innowise.fi/">Innowise</a> 2025</small></p>
         </div>
     <script src="jquery-3.7.1.min.js"></script>

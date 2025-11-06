@@ -12,10 +12,12 @@
   <body>
     <div class='container'>
       <h1>Testaa sijaintisi verkossa</h1>
+      <div>
       <p id="ohje">Ohje: Salli sijainnin käyttö, niin näet, miten tarkasti sijaintisi on verkkopalvelujen käytössä.
         <br>Sijainnin käyttöä ei kannata sallia netissä turhaan!</p>
+        </div>
         <button onclick="getLocation()">Aloita testi</button>
-            <iframe id="kartta" src="https://www.openstreetmap.org/export/embed.html?bbox=1.5161132812500002%2C58.75687579705203%2C48.75732421875001%2C69.48071940669338&amp;layer=mapnik" style="border: 1px solid black"></iframe>
+            <iframe id="kartta" src="https://www.openstreetmap.org/export/embed.html?bbox=1.5161132812500002%2C58.75687579705203%2C48.75732421875001%2C69.48071940669338&amp;layer=mapnik" ></iframe>
             <p id="isokarttateksti" style="display: none;"><a href="" id="isokarttalinkki">Näytä isommalla kartalla</a></p>
             <div id="tekstit">
             <p id="locationteksti"></p>

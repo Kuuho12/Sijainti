@@ -53,7 +53,7 @@ function locationSuccess(position) {
         $("#kartta").attr("src", src);
         $("#isokarttateksti").css("display", "block")
         $("#isokarttalinkki").attr("href", `https://www.openstreetmap.org/?mlat=${coords.lat}&mlon=${coords.lon}#map=${zoom}/${coords.lat}/${coords.lon}`);
-        $("#locationteksti").text(`Leveysaste: ${coords.lat} Pituusaste: ${coords.lon}`);
+        $("#locationteksti").text(`Sijainti: ${coords.lat}, ${coords.lon}`);
         $("#tarkkuusteksti").text(`Tarkkuus: ${accuracy} metriä`)
         $("#tapateksti").text(`Tarkkuuden perusteella sijainti perustuu ${locationTapa}`);
     }
@@ -115,7 +115,7 @@ async function getIpLocationFallback(virhe) {
             $("#kartta").attr("src", src);
             $("#isokarttateksti").css("display", "block")
             $("#isokarttalinkki").attr("href", `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=${zoom}/${lat}/${lon}`);
-            $("#locationteksti").text(`Leveysaste: ${lat}. Pituusaste: ${lon}`);
+            $("#locationteksti").text(`Sijainti: ${lat}, ${lon}`);
             $("#tarkkuusteksti").text(`Sijainti perustuu nettiyhteyden IP-osoitteeseen (${nettitarjoaja}).`)
             $("#loader").hide();
             return;

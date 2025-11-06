@@ -5,6 +5,7 @@ let zoom = 15;
 let src = ""
 let locationTapa = ""
 function getLocation() {
+    $("#tekstit").css("display", "block")
     $("#isokarttateksti").css("display", "none")
     $("#locationteksti").text("")
     $("#tarkkuusteksti").text("")
